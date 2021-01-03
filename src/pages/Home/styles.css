@@ -1,0 +1,245 @@
+body {
+    background-color: #EEFCFF;
+}
+
+.container {   
+    width: 100%;
+    height: 100vh;
+    padding: 0 5%;
+}
+
+.username-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.445);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.username-overlay .overlay-box {
+    width: 500px;
+    height: fit-content;
+    background-color: #FFF;
+    padding: 30px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.overlay-box h1, .overlay-box input {
+    margin-bottom: 20px;
+}
+
+.overlay-box input {
+    border: 1px solid #999;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    font-size: 15pt;
+    border-radius: 6px;
+    padding: 5px;
+}
+
+.overlay-box button {
+    font-size: 15pt;
+    color: #FFF;
+    border: 0;
+    padding: 5px 15px;
+    background-color:  #256EFF;
+    cursor: pointer;
+}
+
+button:hover {
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.479);
+    transition: 0.2s;
+}
+
+button:active {
+    background-color: #528cff;
+}
+
+header {
+    margin: 2vh 0;
+}
+
+header h1 {
+    color: #256EFF;
+    font-family: 'Hanalei Fill', cursive;
+    font-size: 35pt;
+}
+
+input#search {
+    margin: 2vh 0;
+    border-radius: 6px;
+    border: 1px solid rgb(204, 203, 203);
+    width: 100%;
+    font-size: 12pt;
+    padding: 10px;
+    color: #333;
+}
+
+main {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+main .new-room {
+    width: 750px;
+    height: 100%;
+    border-radius: 6px;
+    background-color: #FFF;
+    padding: 20px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.new-room h1 {
+    font-size: 20pt;
+    margin-bottom: 20px;
+}
+
+.new-room .inputs {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.input-block {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.input-block input {
+    width: 100%;
+}
+
+.input-block input, .input-block select {
+    font-size: 15pt;
+    border-radius: 6px;
+    border: 1px solid  rgb(204, 203, 203);
+    padding: 10px;
+}
+
+.input-block select {
+    cursor: pointer;
+}
+
+.input-block label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.input-block .added-columns {
+    border-radius: 6px;
+    min-height: 70px;
+    height: fit-content;
+    background-color: #C4C4C4;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.added-columns .column-card {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 8pt;
+    background-color: #FFF;
+    padding: 3px 5px;
+    margin: 3px;
+    border-radius: 6px;
+}
+
+.added-columns .column-card:hover {
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.479);
+    transition: 0.2s;
+}
+
+.added-columns .column-card span {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.added-columns .column-card .close-card {
+    cursor: pointer;
+}
+
+.new-room button {
+    font-size: 15pt;
+    padding: 10px 20px;
+    border: 0;
+    background-color: #256EFF;
+    color: #FFF;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+main .rooms {
+    height: 100%;
+    width: 400px;
+    border-radius: 6px;
+    background-color: #FFF;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+}
+
+.rooms h3 {
+    font-size: 18pt;
+    background-color: #36E57C;
+    padding: 10px 20px;
+    border-radius: 6px 6px 0 0;
+    color: #FFF;
+    -webkit-text-stroke: 1px #000;
+}
+
+.rooms ul {
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+    padding: 20px;
+    list-style-type: none;
+}
+
+.rooms ul li {
+    border-top: 10px solid #256EFF;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 25px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.rooms ul li p {
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+.rooms ul li .room-columns {
+    color: #333;
+    font-size: 10pt;
+    display: block;
+}
+
+.rooms ul li .players {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.rooms ul li .players span {
+    font-size: 10pt;
+    color: #333;
+    margin-left: 7px;
+}
