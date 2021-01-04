@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaTimesCircle } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
 
+import './styles.css';
+
 function NewRoom() {
 
   const MAX_COLUMNS = 20;

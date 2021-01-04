@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+import './styles.css';
+
 function UsernameInputOverlay({ container }) {
 
   const overlay = useRef(null);

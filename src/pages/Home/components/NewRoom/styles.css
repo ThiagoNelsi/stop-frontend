@@ -1,0 +1,96 @@
+.new-room {
+    width: 750px;
+    height: 100%;
+    border-radius: 6px;
+    background-color: #FFF;
+    padding: 20px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.new-room h1 {
+    font-size: 20pt;
+    margin-bottom: 20px;
+}
+
+.new-room .inputs {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.input-block {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.input-block input {
+    width: 100%;
+}
+
+.input-block input, .input-block select {
+    font-size: 15pt;
+    border-radius: 6px;
+    border: 1px solid  rgb(204, 203, 203);
+    padding: 10px;
+}
+
+.input-block select {
+    cursor: pointer;
+}
+
+.input-block label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.input-block .added-columns {
+    border-radius: 6px;
+    min-height: 70px;
+    max-height: 100px;
+    overflow: auto;
+    height: fit-content;
+    background-color: #C4C4C4;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.added-columns .column-card {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 8pt;
+    background-color: #FFF;
+    padding: 3px 5px;
+    margin: 3px;
+    border-radius: 6px;
+}
+
+.added-columns .column-card:hover {
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.479);
+    transition: 0.2s;
+}
+
+.added-columns .column-card span {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.added-columns .column-card .close-card {
+    cursor: pointer;
+}
+
+.new-room button {
+    font-size: 15pt;
+    padding: 10px 20px;
+    border: 0;
+    background-color: #256EFF;
+    color: #FFF;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
