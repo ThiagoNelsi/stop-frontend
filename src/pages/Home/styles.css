@@ -230,6 +230,10 @@ main .rooms {
     color: #333;
     font-size: 10pt;
     display: block;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .rooms ul li .players {

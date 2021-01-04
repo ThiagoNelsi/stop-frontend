@@ -18,10 +18,38 @@ function Home() {
   const [newRoomAccess, setNewRoomAccess] = useState('public');
   const [newRoomPassword, setNewRoomPassword] = useState('');
 
+  const roomsMock = [
+    {
+      name: 'Some name',
+      columns: ['col1', 'column 2', 'mycolumn', 'some column', 'testing', 'mycolumn', 'some column', 'testing'],
+      onlinePlayers: 5,
+      maxPlayers: 5,
+    },
+    {
+      name: 'Some name',
+      columns: ['col1', 'column 2', 'mycolumn', 'some column', 'testing'],
+      onlinePlayers: 5,
+      maxPlayers: 10,
+    },
+    {
+      name: 'Some name',
+      columns: ['col1', 'column 2', 'mycolumn', 'some column', 'testing'],
+      onlinePlayers: 6,
+      maxPlayers: 15,
+    },
+    {
+      name: 'Some name',
+      columns: ['col1', 'column 2', 'mycolumn', 'some column', 'testing'],
+      onlinePlayers: 5,
+      maxPlayers: 5,
+    },
+  ]
+
   const [rooms, setRooms] = useState([]);
  
   useEffect(() => {
     showUsernameInput();
+    setRooms(roomsMock);
   }, []);
 
   useEffect(() => {
@@ -194,46 +222,15 @@ function Home() {
         <div className="rooms">
           <h3>SALAS</h3>
           <ul>
-            <li className="room">
-              <p className="room-name">NOME DA SALA</p>
-              <span className="room-columns">ALIMENTO, CIDADE, OBJETO...</span>
-              <span className="players"> <FaUsers color="#333" /> <span>6/12</span></span>
-            </li>
-            <li className="room">
-              <p className="room-name">NOME DA SALA</p>
-              <span className="room-columns">ALIMENTO, CIDADE, OBJETO...</span>
-              <span className="players"> <FaUsers color="#333" /> <span>6/12</span></span>
-            </li>
-            <li className="room">
-              <p className="room-name">NOME DA SALA</p>
-              <span className="room-columns">ALIMENTO, CIDADE, OBJETO...</span>
-              <span className="players"> <FaUsers color="#333" /> <span>6/12</span></span>
-            </li>
-            <li className="room">
-              <p className="room-name">NOME DA SALA</p>
-              <span className="room-columns">ALIMENTO, CIDADE, OBJETO...</span>
-              <span className="players"> <FaUsers color="#333" /> <span>6/12</span></span>
-            </li>
-            <li className="room">
-              <p className="room-name">NOME DA SALA</p>
-              <span className="room-columns">ALIMENTO, CIDADE, OBJETO...</span>
-              <span className="players"> <FaUsers color="#333" /> <span>6/12</span></span>
-            </li>
-            <li className="room">
-              <p className="room-name">NOME DA SALA</p>
-              <span className="room-columns">ALIMENTO, CIDADE, OBJETO...</span>
-              <span className="players"> <FaUsers color="#333" /> <span>6/12</span></span>
-            </li>
-            <li className="room">
-              <p className="room-name">NOME DA SALA</p>
-              <span className="room-columns">ALIMENTO, CIDADE, OBJETO...</span>
-              <span className="players"> <FaUsers color="#333" /> <span>6/12</span></span>
-            </li>
-            <li className="room">
-              <p className="room-name">NOME DA SALA</p>
-              <span className="room-columns">ALIMENTO, CIDADE, OBJETO...</span>
-              <span className="players"> <FaUsers color="#333" /> <span>6/12</span></span>
-            </li>
+          {
+            rooms.map(room => (
+              <li className="room" key={uuidv4()}>
+                <p className="room-name">{room.name}</p>
+                <span className="room-columns">{room.columns.join(' - ').toUpperCase()}</span>
+                <span className="players"> <FaUsers color="#333" /> <span>{room.onlinePlayers}/{room.maxPlayers}</span></span>
+              </li>
+            ))
+          }
           </ul>
         </div>
       </main>
