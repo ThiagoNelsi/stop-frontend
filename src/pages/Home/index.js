@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaTimesCircle, FaUsers } from 'react-icons/fa';
+import { v4 as uuidv4 } from 'uuid';
 
 import './styles.css';
 
@@ -7,9 +8,17 @@ function Home() {
 
   const overlay = useRef(null);
   const container = useRef(null);
-  const newRoomPassword = useRef(null);
+  const newRoomPasswordElement = useRef(null);
 
+  const [username, setUsername] = useState('');
+  const [newRoomName, setNewRoomName] = useState('');
+  const [newColumn, setNewColumn] = useState('');
+  const [newRoomColumns, setNewRoomColumns] = useState([]);
+  const [newRoomMaxPlayers, setNewRoomMaxPlayers] = useState(5);
   const [newRoomAccess, setNewRoomAccess] = useState('public');
+  const [newRoomPassword, setNewRoomPassword] = useState('');
+
+  const [rooms, setRooms] = useState([]);
  
   useEffect(() => {
     showUsernameInput();
@@ -17,9 +26,10 @@ function Home() {
 
   useEffect(() => {
     if (newRoomAccess === 'public') {
-      newRoomPassword.current.style.display = 'none'
+      newRoomPasswordElement.current.style.display = 'none';
+      setNewRoomPassword('');
     } else {
-      newRoomPassword.current.style.display = 'block'
+      newRoomPasswordElement.current.style.display = 'block';
     }
   }, [newRoomAccess]);
 
@@ -28,25 +38,53 @@ function Home() {
     container.current.style.overflow = 'hidden';
   }
 
-  function closeUsernameInput() {
-    overlay.current.style.display = 'none';
-    container.current.style.overflow = 'auto';
+  function closeUsernameInput(event) {
+    event.preventDefault();
+    if (username !== '') {
+      overlay.current.style.display = 'none';
+      container.current.style.overflow = 'auto';
+    } else {
+      alert('Insira um nome');
+    }
   }
 
-  function handleAccessChange(event) {
-    const options = event.target.options;
-    setNewRoomAccess(options[options.selectedIndex].value)
+  function handleNewColumn() {
+    if (newColumn !== '' && !newRoomColumns.includes(newColumn)) {
+      setNewRoomColumns([...newRoomColumns, newColumn]);
+      setNewColumn('');
+    }
+  }
+
+  function handleRemoveColumn(columnName) {
+    const columns = newRoomColumns.filter(column => column !== columnName);
+    setNewRoomColumns(columns);
+  }
+
+  function handleSubmitNewRoom() {
+    if (newRoomName && newRoomColumns.length > 0 && newRoomMaxPlayers) {
+      if (newRoomAccess === 'public' || (newRoomAccess === 'private' && newRoomPassword)) {
+        // send data to backend
+        return;
+      }
+    }
+    alert('Preencha todos os campos');
   }
 
   return (
     <div className="container" ref={container}>
-      <div className="username-overlay" ref={overlay}>
+      <form className="username-overlay" ref={overlay} onSubmit={closeUsernameInput}>
         <div className="overlay-box">
           <h1>Username:</h1>
-          <input type="text" name="username" id="username" />
-          <button onClick={closeUsernameInput}>ENTRAR</button>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            value={username}
+            onChange={event => setUsername(event.target.value)}
+          />
+          <button type="submit">ENTRAR</button>
         </div>
-      </div>
+      </form>
       <header>
         <h1>STOP!</h1>
         <input type="text" name="search" id="search" placeholder="Pesquisar sala..."/>
@@ -54,7 +92,7 @@ function Home() {
 
       
       <main>
-        <form className="new-room">
+        <div className="new-room">
 
           <h1>CRIAR SALA</h1>
 
@@ -62,24 +100,52 @@ function Home() {
             <div className="left">
               <div className="input-block">
                 <label htmlFor="room-name">NOME</label>
-                <input type="text" name="room-name" id="room-name" max="15" />
+                <input
+                 type="text"
+                 name="room-name"
+                 id="room-name"
+                 max="15"
+                 value={newRoomName}
+                 onChange={event => setNewRoomName(event.target.value)}
+                />
               </div>
 
               <div className="input-block">
                 <label htmlFor="room-columns">COLUNAS</label>
-                <input type="text" name="room-columns" id="room-columns"/>
+                <input
+                  type="text"
+                  name="room-columns"
+                  id="room-columns"
+                  value={newColumn}
+                  onChange={event => setNewColumn(event.target.value)}
+                  onKeyPress={event => event.key === 'Enter' ? handleNewColumn() : null }
+                />
                 <div className="added-columns">
-                  <span className="column-card"><span>PAÍS</span> <FaTimesCircle color="#C10F0F" size="15" className="close-card"/> </span>
-                  <span className="column-card"><span>CIDADE</span> <FaTimesCircle color="#C10F0F" size="15" className="close-card" /> </span>
-                  <span className="column-card"><span>OBJETO</span> <FaTimesCircle color="#C10F0F" size="15" className="close-card" /> </span>
-                  <span className="column-card"><span>NOME</span> <FaTimesCircle color="#C10F0F" size="15" className="close-card" /> </span>
-                  <span className="column-card"><span>FRUTA</span> <FaTimesCircle color="#C10F0F" size="15" className="close-card" /> </span>
+                  {
+                    newRoomColumns.map(column => (
+                      <span className="column-card" key={uuidv4()} >
+                        <span>{column}</span>
+                        <FaTimesCircle
+                          color="#C10F0F"
+                          size="15"
+                          className="close-card"
+                          onClick={() => handleRemoveColumn(column)}
+                        />
+                      </span>
+                    ))
+                  }
                 </div>
               </div>
 
               <div className="input-block">
                 <label htmlFor="number-of-players">NÚMERO DE JOGADORES</label>
-                <select type="select" name="number-of-players" id="number-of-players">
+                <select
+                  type="select"
+                  name="number-of-players"
+                  id="number-of-players"
+                  value={newRoomMaxPlayers}
+                  onChange={event => setNewRoomMaxPlayers(event.target.value)}
+                >
                   <option value="5">5</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
@@ -97,22 +163,33 @@ function Home() {
             <div className="right">
               <div className="input-block">
                 <label htmlFor="access">ACESSO</label>
-                <select name="access" id="access" onChange={handleAccessChange} >
+                <select
+                  name="access"
+                  id="access"
+                  value={newRoomAccess}
+                  onChange={event => setNewRoomAccess(event.target.value)}
+                >
                   <option value="public">Público</option>
                   <option value="private">Privado</option>
                 </select>
               </div>
 
-              <div className="input-block" ref={newRoomPassword} >
+              <div className="input-block" ref={newRoomPasswordElement} >
                 <label htmlFor="room-password">SENHA</label>
-                <input type="password" name="room-password" id="room-password" />
+                <input
+                  type="password"
+                  name="room-password"
+                  id="room-password"
+                  value={newRoomPassword}
+                  onChange={event => setNewRoomPassword(event.target.value)}
+                />
               </div>
 
-              <button type="submit">CRIAR</button>
+              <button onClick={handleSubmitNewRoom}>CRIAR</button>
             </div>
           </div>
 
-        </form>
+        </div>
 
         <div className="rooms">
           <h3>SALAS</h3>
