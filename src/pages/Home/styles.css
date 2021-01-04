@@ -143,6 +143,8 @@ main .new-room {
 .input-block .added-columns {
     border-radius: 6px;
     min-height: 70px;
+    max-height: 100px;
+    overflow: auto;
     height: fit-content;
     background-color: #C4C4C4;
     margin-top: 5px;

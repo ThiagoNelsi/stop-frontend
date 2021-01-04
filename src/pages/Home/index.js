@@ -6,9 +6,12 @@ import './styles.css';
 
 function Home() {
 
+  const MAX_COLUMNS = 20;
+
   const overlay = useRef(null);
   const container = useRef(null);
-  const newRoomPasswordElement = useRef(null);
+  const newRoomPasswordInput = useRef(null);
+  const newRoomInput = useRef(null);
 
   const [username, setUsername] = useState('');
   const [newRoomName, setNewRoomName] = useState('');
@@ -54,12 +57,21 @@ function Home() {
 
   useEffect(() => {
     if (newRoomAccess === 'public') {
-      newRoomPasswordElement.current.style.display = 'none';
+      newRoomPasswordInput.current.style.display = 'none';
       setNewRoomPassword('');
     } else {
-      newRoomPasswordElement.current.style.display = 'block';
+      newRoomPasswordInput.current.style.display = 'block';
     }
   }, [newRoomAccess]);
+
+  useEffect(() => {
+    if (newRoomColumns.length === MAX_COLUMNS) {
+      newRoomInput.current.disabled = true;
+      alert('Máximo de colunas atingido');
+    } else {
+      newRoomInput.current.disabled = false;
+    }
+  }, [newRoomColumns]);
 
   function showUsernameInput() {
     overlay.current.style.display = 'flex';
@@ -77,7 +89,12 @@ function Home() {
   }
 
   function handleNewColumn() {
-    if (newColumn !== '' && !newRoomColumns.includes(newColumn)) {
+    if (newRoomColumns.length === MAX_COLUMNS) return;
+    if (newRoomColumns.includes(newColumn)) {
+      alert('Essa coluna já existe');
+      return;
+    }
+    if (newColumn !== '') {
       setNewRoomColumns([...newRoomColumns, newColumn]);
       setNewColumn('');
     }
@@ -115,7 +132,7 @@ function Home() {
       </form>
       <header>
         <h1>STOP!</h1>
-        <input type="text" name="search" id="search" placeholder="Pesquisar sala..."/>
+        <input type="text" name="search" id="search" placeholder="Pesquisar sala..." />
       </header>
 
       
@@ -144,6 +161,7 @@ function Home() {
                   type="text"
                   name="room-columns"
                   id="room-columns"
+                  ref={newRoomInput}
                   value={newColumn}
                   onChange={event => setNewColumn(event.target.value)}
                   onKeyPress={event => event.key === 'Enter' ? handleNewColumn() : null }
@@ -202,7 +220,7 @@ function Home() {
                 </select>
               </div>
 
-              <div className="input-block" ref={newRoomPasswordElement} >
+              <div className="input-block" ref={newRoomPasswordInput} >
                 <label htmlFor="room-password">SENHA</label>
                 <input
                   type="password"
