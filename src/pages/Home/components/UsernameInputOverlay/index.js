@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 function UsernameInputOverlay({ container }) {
 
   const overlay = useRef(null);
+  const usernameInput = useRef(null);
 
   const [username, setUsername] = useState('');
 
@@ -13,6 +14,7 @@ function UsernameInputOverlay({ container }) {
   function showUsernameInput() {
     overlay.current.style.display = 'flex';
     container.current.style.overflow = 'hidden';
+    usernameInput.current.focus();
   }
 
   function closeUsernameInput(event) {
@@ -33,6 +35,7 @@ function UsernameInputOverlay({ container }) {
           type="text"
           name="username"
           id="username"
+          ref={usernameInput}
           value={username}
           onChange={event => setUsername(event.target.value)}
         />
